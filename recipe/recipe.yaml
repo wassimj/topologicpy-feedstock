@@ -13,40 +13,54 @@ source:
   sha256: f0d2dcb12dab69994a8d7cdedcbdbac5c541984a7bedc726b223f40448f1c440
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: pip install . -v --no-deps --ignore-installed --no-build-isolation
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - pip
-    - setuptools
     - python ${{ python_min }}.*
+    - pip
+    - setuptools >=61
   run:
-    - python >=${{ python_min }}
-    - numpy
-    - scipy >=1.4.1
+    - python >=${{ python_min }},<3.15
     - numpy >=1.18.0
+    - scipy >=1.4.1
     - pandas
-    - scikit-learn
-    - tqdm
-    - topologic-core >=7.0.1
+    - shapely
+    - plotly
+    - lark
+    - webcolors
+    - nbformat
+    - pythonocc-core >=7.9.3
 
 tests:
   - python:
       imports:
         - topologicpy
-      python_version: ${{ python_min }}.*
-      pip_check: false
+        - topologicpy.Core
+        - OCC
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+      pip_check: true
+  - script:
+      - python -c "from topologicpy.Core import Core; assert Core.Backend().__class__.__name__ == 'PythonOCCBackend'"
+      - python -c "from topologicpy.Vertex import Vertex; assert Vertex.ByCoordinates(0, 0, 0) is not None"
+
 about:
-  license: AGPL-3.0-or-later
+  license: LGPL-3.0-or-later
   license_file: LICENSE
-  summary: The python bindings for topologic
+  summary: An AI-Powered Spatial Modelling and Analysis Software Library for Architecture, Engineering, and Construction.
   description: |
-    An AI-Powered Spatial Modelling and Analysis Software Library for Architecture, Engineering, and Construction.
+    TopologicPy is a spatial modelling and analysis software library for
+    Architecture, Engineering, and Construction. This conda-forge package uses
+    pythonocc-core as its default topology and geometry backend.
   homepage: https://topologic.app/
   repository: https://github.com/wassimj/topologicpy
+  documentation: https://topologicpy.readthedocs.io
 
 extra:
   recipe-maintainers:
     - Krande
+    - wassimj
