@@ -5,13 +5,17 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/topologicpy-fee
 
 Home: https://topologic.app/
 
-Package license: AGPL-3.0-or-later
+Package license: LGPL-3.0-or-later
 
-Summary: The python bindings for topologic
+Summary: An AI-Powered Spatial Modelling and Analysis Software Library for Architecture, Engineering, and Construction.
 
 Development: https://github.com/wassimj/topologicpy
 
-An AI-Powered Spatial Modelling and Analysis Software Library for Architecture, Engineering, and Construction.
+Documentation: https://topologicpy.readthedocs.io/
+
+TopologicPy is a spatial modelling and analysis software library for
+Architecture, Engineering, and Construction. This conda-forge package uses
+pythonocc-core as its default topology and geometry backend.
 
 Current build status
 ====================
@@ -193,4 +197,5 @@ Feedstock Maintainers
 =====================
 
 * [@Krande](https://github.com/Krande/)
+* [@wassimj](https://github.com/wassimj/)
 
